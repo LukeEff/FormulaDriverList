@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Information associated with formula drivers.
  */
-public record FormulaDriver(String driverName, String vehicleName, int number) {
+public record FormulaDriver(String driverFirstName, String driverLastName, String vehicleName, int number) {
 
     /**
      * Get the data of the FormulaDriver instance in the format to be displayed to the client.
@@ -13,7 +13,11 @@ public record FormulaDriver(String driverName, String vehicleName, int number) {
      * @return data of the FormulaDriver instance in the format to be displayed to the client.
      */
     public String getDisplayName() {
-        return driverName + " " + number + " " + vehicleName;
+        return getDriverName() + " " + number + " " + vehicleName;
+    }
+
+    public String getDriverName() {
+        return driverFirstName + " " + driverLastName;
     }
 
     @Override
@@ -21,18 +25,22 @@ public record FormulaDriver(String driverName, String vehicleName, int number) {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         final FormulaDriver that = (FormulaDriver) other;
-        return number == that.number && Objects.equals(driverName, that.driverName) && Objects.equals(vehicleName, that.vehicleName);
+        return number == that.number
+                && Objects.equals(driverFirstName, that.driverFirstName)
+                && Objects.equals(driverLastName, that.driverLastName)
+                && Objects.equals(vehicleName, that.vehicleName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(driverName, vehicleName, number);
+        return Objects.hash(driverFirstName, driverLastName, vehicleName, number);
     }
 
     @Override
     public String toString() {
         return "FormulaDriver{" +
-                "driverName='" + driverName + '\'' +
+                "driverFirstName='" + driverFirstName + '\'' +
+                ", driverLastName='" + driverLastName + '\'' +
                 ", vehicleName='" + vehicleName + '\'' +
                 ", number=" + number +
                 '}';

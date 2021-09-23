@@ -66,9 +66,10 @@ public class FormulaDriverParser {
      * @return new FormulaDriver instance that corresponds to the provided data.
      */
     private static FormulaDriver parseFormulaDriver(final String[] data) {
-        final String driverName = data[0];
-        final int number = Integer.parseInt(data[1]);
-        final String vehicleName = data[2];
-        return new FormulaDriver(driverName, vehicleName, number);
+        final String driverFirstName = data[0];
+        final String driverLastName = data[1];
+        final int number = Integer.parseInt(data[2]);
+        final String vehicleName = data[3];
+        return new FormulaDriver(driverFirstName, driverLastName, vehicleName, number);
     }
 }

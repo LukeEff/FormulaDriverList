@@ -14,6 +14,10 @@ import static io.github.lukeeff.formuladriverlist.FormulaDriverParser.parseFormu
 public class FormulaDriverList {
 
     private static final String RESOURCE_PATH = "src/resources/";
+    private static final String DRIVER_TITLE = """
+                2021 F1 Drivers
+                ===============\s
+                """;
 
     public static void main(String[] args) {
         final FormulaDriverList formulaDriverList = new FormulaDriverList();
@@ -22,6 +26,12 @@ public class FormulaDriverList {
     public FormulaDriverList() {
         final List<FormulaDriver> formulaDrivers = parseFormulaDriverCsv(RESOURCE_PATH + "formula-drivers.csv");
         final Map<String, String> driverMessageMap = parseFormulaDriverMessageCsv(RESOURCE_PATH + "formula-driver-display-messages.csv");
+
+        System.out.println(DRIVER_TITLE);
+        sortByDriverLastName(formulaDrivers);
+        printDriversWithMessages(formulaDrivers, driverMessageMap);
+        System.out.println("\n");
+        sortByFormulaNumber(formulaDrivers);
         printDriversWithMessages(formulaDrivers, driverMessageMap);
     }
 
@@ -35,8 +45,8 @@ public class FormulaDriverList {
                                           final Map<String, String> driverMessageMap) {
         formulaDrivers.forEach(driver -> {
             String displayMessage = driver.getDisplayName();
-            if (driverMessageMap.containsKey(driver.driverName())) {
-                displayMessage += " " + driverMessageMap.get(driver.driverName());
+            if (driverMessageMap.containsKey(driver.getDriverName())) {
+                displayMessage += " " + driverMessageMap.get(driver.getDriverName());
             }
             System.out.println(displayMessage);
         });
@@ -47,8 +57,8 @@ public class FormulaDriverList {
      *
      * @param formulaDrivers list of FormulaDriver references.
      */
-    private void sortByDriverName(final List<FormulaDriver> formulaDrivers) {
-        formulaDrivers.sort(Comparator.comparing(FormulaDriver::driverName));
+    private void sortByDriverLastName(final List<FormulaDriver> formulaDrivers) {
+        formulaDrivers.sort(Comparator.comparing(FormulaDriver::driverLastName));
     }
 
     /**
