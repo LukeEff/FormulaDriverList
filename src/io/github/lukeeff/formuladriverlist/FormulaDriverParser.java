@@ -3,7 +3,6 @@ package io.github.lukeeff.formuladriverlist;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class FormulaDriverParser {
      * @param path path to the csv file that contains the FormulaDriver data.
      * @return a list of FormulaDriver instances that correspond to data within the csv file pointed to by the path.
      */
-    public static List<FormulaDriver> parseFormulaDriverCsv(String path) {
+    public static List<FormulaDriver> parseFormulaDriverCsv(final String path) {
         final List<FormulaDriver> formulaDrivers = new ArrayList<>();
         try {
             String row;

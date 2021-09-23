@@ -2,6 +2,7 @@ package io.github.lukeeff.formuladriverlist;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import static io.github.lukeeff.formuladriverlist.FormulaDriverParser.parseFormulaDriverCsv;
 
@@ -17,6 +18,21 @@ public class FormulaDriverList {
 
     public FormulaDriverList() {
         final List<FormulaDriver> formulaDrivers = parseFormulaDriverCsv("src/resources/formula-drivers.csv");
+    }
+
+    /**
+     * Prints the list of formula drivers with any special messages that correspond to the FormulaDriver.
+     *
+     * @param formulaDrivers list of formula drivers to be printed.
+     * @param driverMessageMap map containing special messages which correspond to a FormulaDriver.
+     */
+    private void printDriversWithMessages(final List<FormulaDriver> formulaDrivers,
+                                          final Map<FormulaDriver, String> driverMessageMap) {
+        formulaDrivers.forEach(driver -> {
+            String message = driverMessageMap.get(driver);
+            message = message == null ? "" : message;
+            System.out.println(driver.getDisplayName() + " " + message);
+        });
     }
 
     /**
