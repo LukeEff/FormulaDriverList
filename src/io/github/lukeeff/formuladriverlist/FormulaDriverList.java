@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.github.lukeeff.formuladriverlist.FormulaDriverParser.parseFormulaDriverCsv;
+import static io.github.lukeeff.formuladriverlist.FormulaDriverParser.parseFormulaDriverMessageCsv;
 
 /**
  * Reads a list of formula 1 drivers from a csv file that can be sorted and can print special messages for specific
@@ -12,12 +13,16 @@ import static io.github.lukeeff.formuladriverlist.FormulaDriverParser.parseFormu
  */
 public class FormulaDriverList {
 
+    private static final String RESOURCE_PATH = "src/resources/";
+
     public static void main(String[] args) {
         final FormulaDriverList formulaDriverList = new FormulaDriverList();
     }
 
     public FormulaDriverList() {
-        final List<FormulaDriver> formulaDrivers = parseFormulaDriverCsv("src/resources/formula-drivers.csv");
+        final List<FormulaDriver> formulaDrivers = parseFormulaDriverCsv(RESOURCE_PATH + "formula-drivers.csv");
+        final Map<String, String> driverMessageMap = parseFormulaDriverMessageCsv(RESOURCE_PATH + "formula-driver-display-messages.csv");
+        printDriversWithMessages(formulaDrivers, driverMessageMap);
     }
 
     /**
@@ -27,11 +32,13 @@ public class FormulaDriverList {
      * @param driverMessageMap map containing special messages which correspond to a FormulaDriver.
      */
     private void printDriversWithMessages(final List<FormulaDriver> formulaDrivers,
-                                          final Map<FormulaDriver, String> driverMessageMap) {
+                                          final Map<String, String> driverMessageMap) {
         formulaDrivers.forEach(driver -> {
-            String message = driverMessageMap.get(driver);
-            message = message == null ? "" : message;
-            System.out.println(driver.getDisplayName() + " " + message);
+            String displayMessage = driver.getDisplayName();
+            if (driverMessageMap.containsKey(driver.driverName())) {
+                displayMessage += " " + driverMessageMap.get(driver.driverName());
+            }
+            System.out.println(displayMessage);
         });
     }
 

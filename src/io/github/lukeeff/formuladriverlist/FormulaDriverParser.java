@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Reads and parses FormulaDriver data from csv files.
@@ -21,7 +23,6 @@ public class FormulaDriverParser {
         final List<FormulaDriver> formulaDrivers = new ArrayList<>();
         try {
             String row;
-
             final BufferedReader reader = new BufferedReader(new FileReader(path));
             while ((row = reader.readLine()) != null) {
                 final String[] data = row.split(",");
@@ -32,6 +33,29 @@ public class FormulaDriverParser {
             e.printStackTrace();
         }
         return formulaDrivers;
+    }
+
+    /**
+     * Parses a map containing a driver name and the message that should correspond to that name.
+     *
+     * @param path path to the csv file that contains the data.
+     * @return a map containing driver names and the messages that should correspond to each name.
+     */
+    public static Map<String, String> parseFormulaDriverMessageCsv(final String path) {
+        final Map<String, String> nameMessageMap = new HashMap<>();
+        try {
+            String row;
+            final BufferedReader reader = new BufferedReader(new FileReader(path));
+            while ((row = reader.readLine()) != null) {
+                final String[] data = row.split(",");
+                final String driverName = data[0];
+                final String message = data[1];
+                nameMessageMap.put(driverName, message);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return nameMessageMap;
     }
 
     /**
