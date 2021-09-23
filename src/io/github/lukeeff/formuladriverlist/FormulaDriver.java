@@ -3,7 +3,7 @@ package io.github.lukeeff.formuladriverlist;
 import java.util.Objects;
 
 /**
- * The information associated with formula drivers.
+ * Information associated with formula drivers.
  */
 public record FormulaDriver(String driverName, String vehicleName, int number) {
 
@@ -17,10 +17,10 @@ public record FormulaDriver(String driverName, String vehicleName, int number) {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
-        FormulaDriver that = (FormulaDriver) other;
+        final FormulaDriver that = (FormulaDriver) other;
         return number == that.number && Objects.equals(driverName, that.driverName) && Objects.equals(vehicleName, that.vehicleName);
     }
 
