@@ -1,4 +1,4 @@
-package io.github.lukeeff.formuladriverlist;
+package main.java.io.github.lukeeff.formuladriverlist;
 
 import java.util.Objects;
 

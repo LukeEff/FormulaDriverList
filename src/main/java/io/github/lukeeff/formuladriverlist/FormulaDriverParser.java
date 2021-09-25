@@ -1,4 +1,4 @@
-package io.github.lukeeff.formuladriverlist;
+package main.java.io.github.lukeeff.formuladriverlist;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,17 +13,19 @@ import java.util.Map;
  */
 public class FormulaDriverParser {
 
+    private static final String RESOURCE_PATH = "src/resources/";
+
     /**
      * Parses a list of FormulaDrivers from a csv file containing data about each FormulaDriver instance.
      *
-     * @param path path to the csv file that contains the FormulaDriver data.
+     * @param fileName name of the csv file containing the data.
      * @return a list of FormulaDriver instances that correspond to data within the csv file pointed to by the path.
      */
-    public static List<FormulaDriver> parseFormulaDriverCsv(final String path) {
+    public static List<FormulaDriver> parseFormulaDriverCsv(final String fileName) {
         final List<FormulaDriver> formulaDrivers = new ArrayList<>();
         try {
             String row;
-            final BufferedReader reader = new BufferedReader(new FileReader(path));
+            final BufferedReader reader = new BufferedReader(new FileReader(RESOURCE_PATH + fileName));
             while ((row = reader.readLine()) != null) {
                 final String[] data = row.split(",");
                 final FormulaDriver formulaDriver = parseFormulaDriver(data);
@@ -38,14 +40,14 @@ public class FormulaDriverParser {
     /**
      * Parses a map containing a driver name and the message that should correspond to that name.
      *
-     * @param path path to the csv file that contains the data.
+     * @param fileName name of the csv file containing the data.
      * @return a map containing driver names and the messages that should correspond to each name.
      */
-    public static Map<String, String> parseFormulaDriverMessageCsv(final String path) {
+    public static Map<String, String> parseFormulaDriverMessageCsv(final String fileName) {
         final Map<String, String> nameMessageMap = new HashMap<>();
         try {
             String row;
-            final BufferedReader reader = new BufferedReader(new FileReader(path));
+            final BufferedReader reader = new BufferedReader(new FileReader(RESOURCE_PATH + fileName));
             while ((row = reader.readLine()) != null) {
                 final String[] data = row.split(",");
                 final String driverName = data[0];
