@@ -11,6 +11,8 @@ import static main.java.io.github.lukeeff.formuladriverlist.FormulaDriverParser.
 /**
  * Reads a list of formula 1 drivers from a csv file that can be sorted and can print special messages for specific
  * drivers.
+ * 
+ * @author Luke Fernandez
  */
 public class FormulaDriverList {
 
